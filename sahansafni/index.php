@@ -1,0 +1,363 @@
+<?php
+// Retrieve the guest name securely from the URL
+$guestName = isset($_GET['to']) ? htmlspecialchars(trim($_GET['to']), ENT_QUOTES, 'UTF-8') : '';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahan &amp; Safni | Premium Wedding Invitation</title>
+    <meta name="description" content="You are cordially invited to the wedding celebration of Sahan &amp; Safni on 25th May 2026. Join us for this grand celebration!">
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>">
+    <meta property="og:title" content="Sahan & Safni — Wedding Invitation">
+    <meta property="og:description" content="You are cordially invited to celebrate our special day. Click to view the invitation.">
+    <meta property="og:image" content="assets/images/couples.png"> <!-- Using an existing image as preview -->
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <!-- Fixed Decorative Background -->
+    <div class="page-bg"></div>
+
+    <!-- Floating Particles Container -->
+    <div id="particles-js"></div>
+
+    <!-- Ambient Glow Orbs -->
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+    <div class="glow-orb glow-orb-3"></div>
+
+    <!-- Background Music (Hidden) -->
+    <audio id="bg-music" loop>
+        <source src="assets/audio/bg_music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Music Toggle Button -->
+    <div id="music-toggle" onclick="toggleMusic()" title="Toggle Music">
+        <i class="fas fa-play" id="music-icon"></i>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  SPLASH SCREEN — Premium Envelope          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div id="splash-screen">
+        <!-- Decorative Corner Lines -->
+        <div class="splash-corner tl"></div>
+        <div class="splash-corner tr"></div>
+        <div class="splash-corner bl"></div>
+        <div class="splash-corner br"></div>
+
+        <p class="splash-pre-title">A Love Story Begins</p>
+
+        <div class="envelope-wrap">
+            <!-- Interactive Envelope -->
+            <div class="envelope-outer" onclick="openInvitation()" title="Click to open your invitation">
+                <div class="env-body"></div>
+                <div class="env-bottom"></div>
+                <div class="env-left"></div>
+                <div class="env-right"></div>
+                <div class="env-flap"></div>
+                <div class="env-seal"></div>
+                <div class="env-inner-card">Sahan &amp; Safni</div>
+            </div>
+        </div>
+
+        <h1 class="splash-title">You Are Invited</h1>
+        <p class="splash-names-tag">Sahan &amp; Safni &mdash; 25 &middot; V &middot; 2026</p>
+
+        <button class="btn-open-invitation" id="btn-open" onclick="openInvitation()">
+            <i class="fas fa-envelope-open-text"></i>
+            Open Invitation
+        </button>
+
+        <div class="splash-scroll-hint">
+            <div class="scroll-mouse"></div>
+            <span>Scroll to explore</span>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!--  MAIN CONTENT                              -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div id="main-content">
+        <div class="site-wrapper">
+
+            <!-- ── SECTION 1: Hero ──────────────────────── -->
+            <section id="hero-section">
+                <div class="luxury-card fade-up">
+
+                    <!-- Corner Ornaments -->
+                    <div class="ornament tl">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5"/></svg>
+                    </div>
+                    <div class="ornament tr">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5"/></svg>
+                    </div>
+                    <div class="ornament bl">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5"/></svg>
+                    </div>
+                    <div class="ornament br">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5"/></svg>
+                    </div>
+
+                    <p class="eyebrow">The Wedding Celebration of</p>
+
+                    <p class="hero-quote">&ldquo;Two souls with but a single thought,<br>two hearts that beat as one.&rdquo;</p>
+
+                    <h1 class="hero-names-wrap">
+                        <span class="hero-name">Sahan</span>
+                        <div class="hero-amp-row">
+                            <div class="hero-amp-line"></div>
+                            <span class="hero-amp-symbol">&amp;</span>
+                            <div class="hero-amp-line right"></div>
+                        </div>
+                        <span class="hero-name">Safni</span>
+                    </h1>
+
+                    <p class="hero-tagline">Together forever &mdash; beginning May 25th, 2026</p>
+
+                    <?php if (!empty($guestName)): ?>
+                    <div class="guest-banner">
+                        <div class="guest-label">Specially Invited</div>
+                        <div class="guest-name"><?php echo $guestName; ?></div>
+                    </div>
+                    <?php endif; ?>
+
+                    <div class="divider">
+                        <div class="divider-line" style="width:100px;"></div>
+                        <span class="divider-icon">✦</span>
+                        <div class="divider-line" style="width:100px;"></div>
+                    </div>
+
+                    <!-- Calendar Date Widget -->
+                    <div class="date-widget">
+                        <div class="dw-month">May</div>
+                        <div class="dw-day">25</div>
+                        <div class="dw-year">2026</div>
+                    </div>
+
+                    <!-- Live Countdown Timer -->
+                    <div class="countdown-wrap">
+                        <div class="countdown-tile">
+                            <span class="cd-num" id="cd-days">00</span>
+                            <span class="cd-label">Days</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-tile">
+                            <span class="cd-num" id="cd-hours">00</span>
+                            <span class="cd-label">Hours</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-tile">
+                            <span class="cd-num" id="cd-minutes">00</span>
+                            <span class="cd-label">Mins</span>
+                        </div>
+                        <div class="countdown-sep">:</div>
+                        <div class="countdown-tile">
+                            <span class="cd-num" id="cd-seconds">00</span>
+                            <span class="cd-label">Secs</span>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 2: Parents / Families ───────── -->
+            <section id="parents-section">
+                <div class="luxury-card fade-up">
+
+                    <p class="eyebrow">Together With Their Families</p>
+
+                    <div class="divider">
+                        <div class="divider-line" style="width:70px;"></div>
+                        <span class="divider-icon"><i class="fas fa-ring" style="font-size:0.75rem;"></i></span>
+                        <div class="divider-line" style="width:70px;"></div>
+                    </div>
+
+                    <div class="parents-grid">
+                        <div class="parent-card">
+                            <span class="parent-role">Son of</span>
+                            <p class="parent-names">
+                                Mr. L.G.H. Nimalsiri<br>
+                                &amp; Mrs. A.M.P. Dulani
+                            </p>
+                        </div>
+                        <div class="parents-center-symbol">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="parent-card">
+                            <span class="parent-role">Daughter of</span>
+                            <p class="parent-names">
+                                Mr. Madura Gamage<br>
+                                &amp; Mrs. Umali Anuruddhika
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 3: Precious Moments Gallery ─── -->
+            <section id="gallery-section">
+                <div class="luxury-card fade-up">
+
+                    <p class="eyebrow">Our Story</p>
+                    <h2 class="gallery-heading">Precious Moments</h2>
+
+                    <div class="divider">
+                        <div class="divider-line" style="width:80px;"></div>
+                        <span class="divider-icon">&#9829;</span>
+                        <div class="divider-line" style="width:80px;"></div>
+                    </div>
+
+                    <div class="carousel-frame">
+                        <div class="carousel-viewport">
+                            <div class="carousel-track" id="carousel-track">
+                                <img class="carousel-slide" src="./assets/images/bg.png"     alt="Aesthetic Wedding Background">
+                                <img class="carousel-slide" src="./assets/images/ring.png"   alt="Wedding Rings">
+                                <img class="carousel-slide" src="./assets/images/couple.png" alt="Couple Silhouette">
+                            </div>
+                        </div>
+                        <button class="carousel-btn prev" id="carousel-prev" aria-label="Previous slide">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn next" id="carousel-next" aria-label="Next slide">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots">
+                        <div class="carousel-dot active" data-index="0"></div>
+                        <div class="carousel-dot" data-index="1"></div>
+                        <div class="carousel-dot" data-index="2"></div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 4: Event Details & Map ────────── -->
+            <section id="event-section">
+                <div class="luxury-card fade-up">
+
+                    <p class="eyebrow">Join Us</p>
+                    <h2 class="event-heading">When &amp; Where</h2>
+
+                    <div class="divider">
+                        <div class="divider-line" style="width:80px;"></div>
+                        <span class="divider-icon">✦</span>
+                        <div class="divider-line" style="width:80px;"></div>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="tl-icon-wrap"><i class="fas fa-clock"></i></div>
+                            <div class="tl-content">
+                                <div class="tl-title">Date &amp; Time</div>
+                                <p class="tl-detail">
+                                    Monday, 25th May 2026<br>
+                                    <strong>10:00 A.M. to 4:00 P.M.</strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="tl-icon-wrap"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="tl-content">
+                                <div class="tl-title">Venue</div>
+                                <p class="tl-detail">
+                                    <strong>Grand Glamora Luxury Banquet</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Embedded Google Map -->
+                    <div class="map-wrap">
+                        <iframe
+                            src="https://maps.google.com/maps?q=Grand+Glamora+Luxury+Banquet&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="100%"
+                            height="320"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            title="Venue Location">
+                        </iframe>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ── SECTION 5: Outro & RSVP ────────────────── -->
+            <section id="outro-section">
+                <div class="outro-bg fade-up">
+
+                    <!-- Corner Ornaments (light version) -->
+                    <div class="ornament tl">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5" stroke="rgba(201,149,108,0.4)"/></svg>
+                    </div>
+                    <div class="ornament tr">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5" stroke="rgba(201,149,108,0.4)"/></svg>
+                    </div>
+                    <div class="ornament bl">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5" stroke="rgba(201,149,108,0.4)"/></svg>
+                    </div>
+                    <div class="ornament br">
+                        <svg viewBox="0 0 50 50"><path d="M5 45 L5 5 L45 5" stroke="rgba(201,149,108,0.4)"/></svg>
+                    </div>
+
+                    <h2 class="outro-title">We await your presence!</h2>
+
+                    <div class="divider">
+                        <div class="divider-line" style="width:80px; background:linear-gradient(to right,transparent,rgba(201,149,108,0.5),transparent);"></div>
+                        <span class="divider-icon" style="color:var(--rose-gold-light);">✦</span>
+                        <div class="divider-line" style="width:80px; background:linear-gradient(to right,transparent,rgba(201,149,108,0.5),transparent);"></div>
+                    </div>
+
+                    <p class="outro-text">For inquiries, please feel free to reach out to the couple:</p>
+
+                    <div class="outro-contacts">
+                        <a href="tel:+94717406966" class="contact-pill">
+                            <i class="fas fa-phone"></i>
+                            Sahan: 071-7406966
+                        </a>
+                        <a href="tel:+94717400620" class="contact-pill">
+                            <i class="fas fa-phone"></i>
+                            Safni: 071-7400620
+                        </a>
+                    </div>
+
+                    <?php
+                        $waMessage = "Hello Sahan & Safni! Thank you for the wonderful invitation. ";
+                        if (!empty($guestName)) {
+                            $waMessage .= "I/We, " . $guestName . ", happily accept and will be attending your glamorous wedding!";
+                        } else {
+                            $waMessage .= "I/We eagerly accept and will be attending your glamorous wedding!";
+                        }
+                        $waEncoded = rawurlencode($waMessage);
+                    ?>
+                    <a href="https://wa.me/94717406966?text=<?php echo $waEncoded; ?>" target="_blank" class="rsvp-btn" id="rsvp-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        Click to RSVP
+                    </a>
+
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="site-footer">
+                <p>Made with &#9829; &mdash; Sahan &amp; Safni &copy; 2026</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahan & Safni | Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #fdfaf5 0%, #f5e6d3 100%);
+        }
+        .logout-link {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: #888;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .logout-link:hover { color: var(--wine); }
+        #login-section, #generator-section { display: none; }
+        #login-section.active, #generator-section.active { display: block; }
+    </style>
+</head>
+<body class="admin-wrapper">
+
+    <div class="admin-panel" style="display: block; opacity: 1; transform: none;">
+        <h2 class="admin-title">Admin Panel</h2>
+        <p class="admin-sub">Sahan &amp; Safni Wedding</p>
+        
+        <!-- Login Section -->
+        <div id="login-section">
+            <form id="login-form">
+                <div class="form-group">
+                    <label class="form-label">Admin Access Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter password" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ddd;" required>
+                </div>
+                <p id="login-error" style="color: #6b2d3e; font-size: 0.85rem; margin-top: -1rem; margin-bottom: 1rem; text-align: center; display: none;">Incorrect password.</p>
+                <button type="submit" class="btn-admin">Login</button>
+            </form>
+        </div>
+
+        <!-- Generator Section -->
+        <div id="generator-section">
+            <form id="generator-form">
+                <div class="form-group">
+                    <label class="form-label">Guest Name (for Invitation)</label>
+                    <input type="text" id="inviteeName" placeholder="e.g. Mr. & Mrs. Perera" required>
+                </div>
+                <button type="submit" class="btn-admin">Generate Link</button>
+            </form>
+
+            <div id="result-box" class="result-container">
+                <p class="result-label">Link generated for <strong id="res-name" style="color: var(--wine);"></strong>:</p>
+                <div class="generated-link" id="generatedLinkText"></div>
+                <button class="btn-admin" onclick="copyLink()">Copy Link</button>
+                <p id="copyMessage" class="copy-success">Link Copied Successfully!</p>
+            </div>
+
+            <a onclick="logout()" class="logout-link">Logout</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const AUTH_KEY = 'admin_auth_sahan_safni';
+        const PASSWORD = 'wedding2026';
+
+        // Check Auth on load
+        if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+            showSection('generator');
+        } else {
+            showSection('login');
+        }
+
+        function showSection(name) {
+            document.getElementById('login-section').classList.toggle('active', name === 'login');
+            document.getElementById('generator-section').classList.toggle('active', name === 'generator');
+        }
+
+        // Login Logic
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const pass = document.getElementById('loginPassword').value;
+            if (pass === PASSWORD) {
+                sessionStorage.setItem(AUTH_KEY, 'true');
+                showSection('generator');
+                document.getElementById('login-error').style.display = 'none';
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        });
+
+        // Generator Logic
+        document.getElementById('generator-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('inviteeName').value.trim();
+            if (name) {
+                const baseUrl = window.location.origin + window.location.pathname.replace('admin.html', 'index.html');
+                const finalLink = `${baseUrl}?to=${encodeURIComponent(name)}`;
+                
+                document.getElementById('res-name').innerText = name;
+                document.getElementById('generatedLinkText').innerText = finalLink;
+                document.getElementById('result-box').classList.add('active');
+            }
+        });
+
+        function logout() {
+            sessionStorage.removeItem(AUTH_KEY);
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
